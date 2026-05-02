@@ -1,0 +1,38 @@
+name: Rule request
+description: Suggest a new AI coding agent rule or workflow.
+title: "[Rule]: "
+labels: ["rule-request"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What agent failure does this rule prevent?
+      description: Describe the failure mode in a real project.
+    validations:
+      required: true
+  - type: textarea
+    id: rule
+    attributes:
+      label: Proposed rule
+      description: Keep it short, specific, and copy-ready.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - codex
+        - claude-code
+        - cursor
+        - windsurf
+        - github-copilot
+        - frontend
+        - backend
+        - testing
+        - code-review
+        - security
+        - refactor
+        - prompt
+    validations:
+      required: true

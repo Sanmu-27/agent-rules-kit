@@ -1,0 +1,48 @@
+{
+  "name": "agent-rules-kit",
+  "version": "0.1.0",
+  "description": "Copy-ready rules, prompts, and a tiny CLI for AI coding agents.",
+  "type": "module",
+  "bin": {
+    "agent-rules-kit": "./bin/agent-rules-kit.js"
+  },
+  "files": [
+    "backend",
+    "bin",
+    "claude-code",
+    "code-review",
+    "codex",
+    "cursor",
+    "examples",
+    "frontend",
+    "github-copilot",
+    "prompts",
+    "refactor",
+    "security",
+    "testing",
+    "windsurf",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/cli.test.js",
+    "smoke": "node ./bin/agent-rules-kit.js list"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "coding-agent",
+    "codex",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "prompts",
+    "mcp"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+.env
+.env.*
+node_modules/
+dist/
+build/
+.cache/
+.npm-cache/
+.tmp-smoke/
+.idea/
+.vscode/
