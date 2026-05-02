@@ -1,81 +1,106 @@
 # Agent Rules Kit
 
-给 AI 编程 Agent 用的规则、提示词和轻量 CLI。
+让 AI 编程工具遵守你的工程规范。
 
-它的目标是让 Codex、Claude Code、Cursor、Windsurf、GitHub Copilot 在真实项目里更像一个谨慎的高级工程师。
+Agent Rules Kit 是一个零依赖 CLI 和规则库，支持 Codex、Claude Code、Cursor、Windsurf、GitHub Copilot。
+
+它解决的是一个很现实的问题：AI agent 能写代码，但经常没有边界感。这个项目把常见翻车点整理成可以一键生成的规则文件。
 
 ```bash
-npx agent-rules-kit list
-npx agent-rules-kit install codex
-npx agent-rules-kit compose cursor --packs frontend,testing,code-review
+npx agent-rules-kit init --interactive
+npx agent-rules-kit init cursor --preset web-app
+npx agent-rules-kit doctor
 ```
 
-## 这个项目解决什么问题
+## 前后对比
 
-AI 编程工具经常不是因为能力不够翻车，而是因为没有明确工程规则：
+| 没有规则 | 使用 Agent Rules Kit |
+| --- | --- |
+| Agent 没读代码就开始改 | 明确要求先检查相关文件 |
+| 顺手重构无关文件 | 明确要求保持改动范围 |
+| 跳过测试 | 明确要求运行最相关的验证命令 |
+| 不遵守项目风格 | 明确要求沿用现有模式 |
+| Review 只说空话 | 优先指出 bug、回归、安全风险和缺失测试 |
 
-- 没读代码就开始改
-- 顺手重构无关文件
-- 跳过测试
-- 不遵守项目已有风格
-- Code Review 只说空话
-- 忽略权限、密钥、上传、Webhook 等安全边界
-
-Agent Rules Kit 把这些经验整理成可以直接复制或一键生成的规则文件。
-
-## 快速开始
-
-给 Codex 安装规则：
+## 30 秒演示
 
 ```bash
-npx agent-rules-kit install codex
-```
+$ npx agent-rules-kit init --interactive
 
-给 Cursor 组合前端、测试和安全规则：
+Agent Rules Kit interactive setup for /my-app
+Recommended: codex + web-app
 
-```bash
-npx agent-rules-kit compose cursor --packs frontend,testing,security
-```
+Choose an AI coding tool:
+1) codex  2) claude-code  3) cursor  4) windsurf  5) github-copilot
 
-查看某个规则包：
+Choose a preset:
+1) web-app  2) frontend  3) api  4) pr-review  5) refactor  6) security
 
-```bash
-npx agent-rules-kit show code-review
+Composed Codex rules with frontend, backend, testing, security at /my-app/AGENTS.md
 ```
 
 ## 支持的工具
 
 | 工具 | 命令 | 输出文件 |
 | --- | --- | --- |
-| Codex | `agent-rules-kit install codex` | `AGENTS.md` |
-| Claude Code | `agent-rules-kit install claude-code` | `CLAUDE.md` |
-| Cursor | `agent-rules-kit install cursor` | `.cursorrules` |
-| Windsurf | `agent-rules-kit install windsurf` | `.windsurfrules` |
-| GitHub Copilot | `agent-rules-kit install github-copilot` | `.github/copilot-instructions.md` |
+| Codex | `agent-rules-kit init codex` | `AGENTS.md` |
+| Claude Code | `agent-rules-kit init claude-code` | `CLAUDE.md` |
+| Cursor | `agent-rules-kit init cursor` | `.cursorrules` |
+| Windsurf | `agent-rules-kit init windsurf` | `.windsurfrules` |
+| GitHub Copilot | `agent-rules-kit init github-copilot` | `.github/copilot-instructions.md` |
 
-## 规则包
+## 预设场景
 
-| 规则包 | 适用场景 |
+| Preset | 适用场景 |
 | --- | --- |
-| `frontend` | UI、产品流程、响应式布局、可访问性 |
-| `backend` | API、服务、任务、数据访问、参数校验 |
-| `testing` | 测试新增、测试修复、回归测试 |
-| `code-review` | PR Review、Diff Review |
-| `security` | 登录、权限、密钥、上传、Webhook、数据访问 |
-| `refactor` | 不改变行为的代码整理 |
+| `web-app` | 全栈 Web 应用 |
+| `frontend` | 前端项目 |
+| `api` | 后端 API 或服务 |
+| `pr-review` | PR Review 助手 |
+| `refactor` | 不改变行为的重构 |
+| `security` | 权限、密钥、上传、Webhook、数据访问等安全敏感项目 |
 
-## 适合冲星的原因
+## 常用命令
 
-这个项目不是单纯 prompt 集合，而是：
+交互式初始化：
 
-- 能直接用
-- 能一条命令安装
-- 覆盖主流 AI 编程工具
-- 方便社区贡献新规则
-- 每个规则都来自真实工程失败模式
+```bash
+npx agent-rules-kit init --interactive
+```
 
-## 贡献
+给 Cursor 生成全栈 Web 应用规则：
 
-欢迎贡献新的规则、prompt、真实失败案例和工具适配。
+```bash
+npx agent-rules-kit init cursor --preset web-app
+```
 
-规则最好短、具体、可复制。
+检查当前项目：
+
+```bash
+npx agent-rules-kit doctor
+```
+
+查看安全规则包：
+
+```bash
+npx agent-rules-kit show security
+```
+
+## 它会让 Agent 更注意什么
+
+- 先读相关代码，再做修改
+- 不乱改无关文件
+- 遵守项目已有架构和命名风格
+- 行为变化时补测试或跑验证
+- Review 时优先指出真正风险
+- 对权限、密钥、上传、Webhook、数据访问更加谨慎
+
+## 为什么有人会用
+
+因为它不是“道理正确的 prompt 集合”，而是一个能马上执行的工具：
+
+```bash
+npx agent-rules-kit init --interactive
+```
+
+重度使用 Cursor、Codex、Claude Code 的开发者，只要被 agent 乱改过一次，就能立刻理解这个项目的价值。

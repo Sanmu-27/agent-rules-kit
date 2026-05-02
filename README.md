@@ -9,6 +9,8 @@ Make AI coding agents follow your engineering standards.
 
 Agent Rules Kit is a zero-dependency CLI and rule library for Codex, Claude Code, Cursor, Windsurf, and GitHub Copilot.
 
+Instead of telling every agent the same rules by hand, install a project-specific instruction file in seconds.
+
 ```bash
 npx agent-rules-kit init --interactive
 npx agent-rules-kit init cursor --preset web-app
@@ -17,6 +19,33 @@ npx agent-rules-kit doctor
 
 ```text
 Recommended setup: agent-rules-kit init codex --preset web-app
+```
+
+## Before And After
+
+| Without Rules | With Agent Rules Kit |
+| --- | --- |
+| Agent edits before reading the codebase | Agent is told to inspect relevant files first |
+| Agent rewrites unrelated files | Agent is told to keep changes scoped |
+| Agent skips tests | Agent is told to run focused verification |
+| Agent ignores local style | Agent is told to follow existing patterns |
+| PR review is vague | Review rules prioritize bugs, regressions, security, and missing tests |
+
+## 30-Second Demo
+
+```bash
+$ npx agent-rules-kit init --interactive
+
+Agent Rules Kit interactive setup for /my-app
+Recommended: codex + web-app
+
+Choose an AI coding tool:
+1) codex  2) claude-code  3) cursor  4) windsurf  5) github-copilot
+
+Choose a preset:
+1) web-app  2) frontend  3) api  4) pr-review  5) refactor  6) security
+
+Composed Codex rules with frontend, backend, testing, security at /my-app/AGENTS.md
 ```
 
 ## Why Developers Star This
@@ -99,6 +128,32 @@ Overwrite an existing file:
 
 ```bash
 npx agent-rules-kit install codex --force
+```
+
+## Recipes
+
+Next.js, Remix, or full-stack web app:
+
+```bash
+npx agent-rules-kit init cursor --preset web-app
+```
+
+Node, Python, Go, or Rust API:
+
+```bash
+npx agent-rules-kit init codex --preset api
+```
+
+PR review assistant:
+
+```bash
+npx agent-rules-kit init claude-code --preset pr-review
+```
+
+Security-sensitive repository:
+
+```bash
+npx agent-rules-kit init github-copilot --preset security
 ```
 
 ## Supported Tools
