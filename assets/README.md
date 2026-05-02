@@ -2,7 +2,9 @@
 
 ## Social Preview
 
-`social-preview.svg` is a GitHub social preview source image.
+`social-preview.svg` is the editable source image.
+
+`social-preview.png` is ready to upload to GitHub.
 
 Recommended export size:
 
@@ -16,4 +18,4 @@ Upload it in:
 GitHub repository -> Settings -> Social preview
 ```
 
-If GitHub does not accept the SVG directly, export it to PNG first.
+Use the PNG for the repository social preview.
