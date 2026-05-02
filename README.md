@@ -21,6 +21,10 @@ npx github:Sanmu-27/agent-rules-kit doctor
 Recommended setup: ai-agent-rules-kit init codex --preset web-app
 ```
 
+## 30-Second Demo
+
+![30-Second Demo](assets/demo-terminal.svg)
+
 ## Before And After
 
 | Without Rules | With Agent Rules Kit |
@@ -31,7 +35,7 @@ Recommended setup: ai-agent-rules-kit init codex --preset web-app
 | Agent ignores local style | Agent is told to follow existing patterns |
 | PR review is vague | Review rules prioritize bugs, regressions, security, and missing tests |
 
-## 30-Second Demo
+## Demo Output
 
 ```bash
 $ npx github:Sanmu-27/agent-rules-kit init --interactive

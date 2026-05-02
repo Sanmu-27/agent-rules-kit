@@ -12,6 +12,10 @@ npx github:Sanmu-27/agent-rules-kit init cursor --preset web-app
 npx github:Sanmu-27/agent-rules-kit doctor
 ```
 
+## 30 秒演示
+
+![30 秒演示](assets/demo-terminal.svg)
+
 ## 前后对比
 
 | 没有规则 | 使用 Agent Rules Kit |
@@ -22,7 +26,7 @@ npx github:Sanmu-27/agent-rules-kit doctor
 | 不遵守项目风格 | 明确要求沿用现有模式 |
 | Review 只说空话 | 优先指出 bug、回归、安全风险和缺失测试 |
 
-## 30 秒演示
+## 演示输出
 
 ```bash
 $ npx github:Sanmu-27/agent-rules-kit init --interactive
