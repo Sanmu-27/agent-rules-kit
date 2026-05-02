@@ -27,8 +27,8 @@ Copy-ready rules and a tiny CLI for Codex, Claude Code, Cursor, Windsurf, and Gi
 ## Suggested Pinned Demo
 
 ```bash
-npx ai-agent-rules-kit init cursor --preset web-app
-npx ai-agent-rules-kit doctor
+npx github:Sanmu-27/agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit doctor
 ```
 
 ## Launch Post
@@ -46,7 +46,7 @@ It helps AI coding agents:
 - produce better PR reviews
 
 Example:
-npx ai-agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit init cursor --preset web-app
 
 Would love feedback on which rule packs or presets should come next.
 ```

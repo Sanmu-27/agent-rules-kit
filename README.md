@@ -12,15 +12,9 @@ Agent Rules Kit is a zero-dependency CLI and rule library for Codex, Claude Code
 Instead of telling every agent the same rules by hand, install a project-specific instruction file in seconds.
 
 ```bash
-npx ai-agent-rules-kit init --interactive
-npx ai-agent-rules-kit init cursor --preset web-app
-npx ai-agent-rules-kit doctor
-```
-
-Not published to npm yet? Run directly from GitHub:
-
-```bash
 npx github:Sanmu-27/agent-rules-kit init --interactive
+npx github:Sanmu-27/agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit doctor
 ```
 
 ```text
@@ -40,7 +34,7 @@ Recommended setup: ai-agent-rules-kit init codex --preset web-app
 ## 30-Second Demo
 
 ```bash
-$ npx ai-agent-rules-kit init --interactive
+$ npx github:Sanmu-27/agent-rules-kit init --interactive
 
 Agent Rules Kit interactive setup for /my-app
 Recommended: codex + web-app
@@ -54,10 +48,10 @@ Choose a preset:
 Composed Codex rules with frontend, backend, testing, security at /my-app/AGENTS.md
 ```
 
-Before the npm package is published, use:
+Planned npm command after publishing:
 
 ```bash
-npx github:Sanmu-27/agent-rules-kit init --interactive
+npx ai-agent-rules-kit init --interactive
 ```
 
 ## Why Developers Star This
@@ -89,13 +83,13 @@ Agent Rules Kit gives you practical instruction files that reduce those failures
 Generate a ready-to-use rule file:
 
 ```bash
-npx ai-agent-rules-kit init codex --preset web-app
+npx github:Sanmu-27/agent-rules-kit init codex --preset web-app
 ```
 
 Or let the CLI recommend a setup:
 
 ```bash
-npx ai-agent-rules-kit init --interactive
+npx github:Sanmu-27/agent-rules-kit init --interactive
 ```
 
 This creates:
@@ -107,7 +101,7 @@ AGENTS.md
 Check an existing repo:
 
 ```bash
-npx ai-agent-rules-kit doctor
+npx github:Sanmu-27/agent-rules-kit doctor
 ```
 
 `doctor` also recommends the best starting command for the current project.
@@ -115,7 +109,7 @@ npx ai-agent-rules-kit doctor
 Compose a richer rule file:
 
 ```bash
-npx ai-agent-rules-kit compose cursor --packs frontend,testing,security
+npx github:Sanmu-27/agent-rules-kit compose cursor --packs frontend,testing,security
 ```
 
 This creates:
@@ -127,19 +121,19 @@ This creates:
 Preview a rule pack:
 
 ```bash
-npx ai-agent-rules-kit show code-review
+npx github:Sanmu-27/agent-rules-kit show code-review
 ```
 
 Install into another project:
 
 ```bash
-npx ai-agent-rules-kit install claude-code --dir ../my-app
+npx github:Sanmu-27/agent-rules-kit install claude-code --dir ../my-app
 ```
 
 Overwrite an existing file:
 
 ```bash
-npx ai-agent-rules-kit install codex --force
+npx github:Sanmu-27/agent-rules-kit install codex --force
 ```
 
 ## Recipes
@@ -147,25 +141,25 @@ npx ai-agent-rules-kit install codex --force
 Next.js, Remix, or full-stack web app:
 
 ```bash
-npx ai-agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit init cursor --preset web-app
 ```
 
 Node, Python, Go, or Rust API:
 
 ```bash
-npx ai-agent-rules-kit init codex --preset api
+npx github:Sanmu-27/agent-rules-kit init codex --preset api
 ```
 
 PR review assistant:
 
 ```bash
-npx ai-agent-rules-kit init claude-code --preset pr-review
+npx github:Sanmu-27/agent-rules-kit init claude-code --preset pr-review
 ```
 
 Security-sensitive repository:
 
 ```bash
-npx ai-agent-rules-kit init github-copilot --preset security
+npx github:Sanmu-27/agent-rules-kit init github-copilot --preset security
 ```
 
 ## Supported Tools
