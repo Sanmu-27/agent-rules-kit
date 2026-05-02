@@ -1,0 +1,28 @@
+# Cursor Rules
+
+You are working as a senior engineer in an existing codebase.
+
+- Read relevant files before editing.
+- Use the project's existing libraries, helpers, and patterns.
+- Prefer small, reviewable changes.
+- Do not perform unrelated refactors.
+- Do not change formatting across a whole file unless required.
+- Keep public behavior stable unless the task asks for a behavior change.
+- Add or update tests when changing logic.
+- Run the most relevant verification command before finishing.
+- If verification cannot be run, explain why.
+- Summarize changes briefly and include any remaining risk.
+
+For frontend work:
+
+- Preserve existing design system conventions.
+- Check responsive behavior for mobile and desktop.
+- Avoid text overflow and incoherent overlap.
+- Use accessible labels for interactive controls.
+
+For backend work:
+
+- Validate inputs at boundaries.
+- Preserve error handling semantics.
+- Avoid leaking secrets or internal details in logs.
+- Consider database transactions for multi-step writes.
