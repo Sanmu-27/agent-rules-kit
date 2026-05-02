@@ -108,15 +108,15 @@ function parseOptions(args) {
 }
 
 function printHelp(io = console) {
-  io.log(`agent-rules-kit
+  io.log(`ai-agent-rules-kit
 
 Usage:
-  agent-rules-kit list
-  agent-rules-kit doctor [--dir <path>]
-  agent-rules-kit init [tool] [--preset <preset>] [--interactive] [--dir <path>] [--force]
-  agent-rules-kit install <tool> [--dir <path>] [--force]
-  agent-rules-kit compose <tool> --packs <pack,pack> [--dir <path>] [--output <file>] [--force]
-  agent-rules-kit show <tool|pack|prompt>
+  ai-agent-rules-kit list
+  ai-agent-rules-kit doctor [--dir <path>]
+  ai-agent-rules-kit init [tool] [--preset <preset>] [--interactive] [--dir <path>] [--force]
+  ai-agent-rules-kit install <tool> [--dir <path>] [--force]
+  ai-agent-rules-kit compose <tool> --packs <pack,pack> [--dir <path>] [--output <file>] [--force]
+  ai-agent-rules-kit show <tool|pack|prompt>
 
 Tools:
   ${Object.keys(tools).join(", ")}
@@ -131,12 +131,12 @@ Presets:
   ${Object.keys(presets).join(", ")}
 
 Examples:
-  agent-rules-kit doctor
-  agent-rules-kit init --interactive
-  agent-rules-kit init cursor --preset web-app
-  agent-rules-kit install codex
-  agent-rules-kit compose cursor --packs frontend,testing,code-review
-  agent-rules-kit show security
+  ai-agent-rules-kit doctor
+  ai-agent-rules-kit init --interactive
+  ai-agent-rules-kit init cursor --preset web-app
+  ai-agent-rules-kit install codex
+  ai-agent-rules-kit compose cursor --packs frontend,testing,code-review
+  ai-agent-rules-kit show security
 `);
 }
 
@@ -223,7 +223,7 @@ function detectTool(baseDir) {
 function install(toolId, options, io = console) {
   const tool = tools[toolId];
   if (!tool) {
-    throw new Error(`Unknown tool "${toolId}". Run "agent-rules-kit list" to see options.`);
+    throw new Error(`Unknown tool "${toolId}". Run "ai-agent-rules-kit list" to see options.`);
   }
 
   const baseDir = resolve(options.dir);
@@ -235,7 +235,7 @@ function install(toolId, options, io = console) {
 function compose(toolId, options, io = console) {
   const tool = tools[toolId];
   if (!tool) {
-    throw new Error(`Unknown tool "${toolId}". Run "agent-rules-kit list" to see options.`);
+    throw new Error(`Unknown tool "${toolId}". Run "ai-agent-rules-kit list" to see options.`);
   }
   if (options.packs.length === 0) {
     throw new Error("No packs provided. Use --packs frontend,testing for example.");
@@ -329,7 +329,7 @@ function doctor(options, io = console) {
   }
 
   io.log(`Agent Rules Kit doctor for ${baseDir}`);
-  io.log(`\nRecommended setup: agent-rules-kit init ${recommendedTool} --preset ${recommendedPreset}`);
+  io.log(`\nRecommended setup: ai-agent-rules-kit init ${recommendedTool} --preset ${recommendedPreset}`);
   if (found.length > 0) {
     io.log("\nFound agent config files:");
     for (const item of found) {
@@ -341,14 +341,14 @@ function doctor(options, io = console) {
 
   io.log("\nAvailable installs:");
   for (const item of missing) {
-    io.log(`  ${item.id.padEnd(15)} agent-rules-kit init ${item.id}`);
+    io.log(`  ${item.id.padEnd(15)} ai-agent-rules-kit init ${item.id}`);
   }
 }
 
 function show(id, io = console) {
   const source = tools[id]?.source || packs[id] || promptFiles[id];
   if (!source) {
-    throw new Error(`Unknown item "${id}". Run "agent-rules-kit list" to see options.`);
+    throw new Error(`Unknown item "${id}". Run "ai-agent-rules-kit list" to see options.`);
   }
 
   io.log(readTemplate(source));

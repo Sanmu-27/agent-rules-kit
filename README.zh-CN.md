@@ -1,4 +1,4 @@
-# Agent Rules Kit
+﻿# Agent Rules Kit
 
 让 AI 编程工具遵守你的工程规范。
 
@@ -7,9 +7,15 @@ Agent Rules Kit 是一个零依赖 CLI 和规则库，支持 Codex、Claude Code
 它解决的是一个很现实的问题：AI agent 能写代码，但经常没有边界感。这个项目把常见翻车点整理成可以一键生成的规则文件。
 
 ```bash
-npx agent-rules-kit init --interactive
-npx agent-rules-kit init cursor --preset web-app
-npx agent-rules-kit doctor
+npx ai-agent-rules-kit init --interactive
+npx ai-agent-rules-kit init cursor --preset web-app
+npx ai-agent-rules-kit doctor
+```
+
+如果还没发布到 npm，可以直接从 GitHub 运行：
+
+```bash
+npx github:Sanmu-27/agent-rules-kit init --interactive
 ```
 
 ## 前后对比
@@ -25,7 +31,7 @@ npx agent-rules-kit doctor
 ## 30 秒演示
 
 ```bash
-$ npx agent-rules-kit init --interactive
+$ npx ai-agent-rules-kit init --interactive
 
 Agent Rules Kit interactive setup for /my-app
 Recommended: codex + web-app
@@ -39,15 +45,21 @@ Choose a preset:
 Composed Codex rules with frontend, backend, testing, security at /my-app/AGENTS.md
 ```
 
+在 npm 包正式发布前，请用：
+
+```bash
+npx github:Sanmu-27/agent-rules-kit init --interactive
+```
+
 ## 支持的工具
 
 | 工具 | 命令 | 输出文件 |
 | --- | --- | --- |
-| Codex | `agent-rules-kit init codex` | `AGENTS.md` |
-| Claude Code | `agent-rules-kit init claude-code` | `CLAUDE.md` |
-| Cursor | `agent-rules-kit init cursor` | `.cursorrules` |
-| Windsurf | `agent-rules-kit init windsurf` | `.windsurfrules` |
-| GitHub Copilot | `agent-rules-kit init github-copilot` | `.github/copilot-instructions.md` |
+| Codex | `ai-agent-rules-kit init codex` | `AGENTS.md` |
+| Claude Code | `ai-agent-rules-kit init claude-code` | `CLAUDE.md` |
+| Cursor | `ai-agent-rules-kit init cursor` | `.cursorrules` |
+| Windsurf | `ai-agent-rules-kit init windsurf` | `.windsurfrules` |
+| GitHub Copilot | `ai-agent-rules-kit init github-copilot` | `.github/copilot-instructions.md` |
 
 ## 预设场景
 
@@ -65,25 +77,25 @@ Composed Codex rules with frontend, backend, testing, security at /my-app/AGENTS
 交互式初始化：
 
 ```bash
-npx agent-rules-kit init --interactive
+npx ai-agent-rules-kit init --interactive
 ```
 
 给 Cursor 生成全栈 Web 应用规则：
 
 ```bash
-npx agent-rules-kit init cursor --preset web-app
+npx ai-agent-rules-kit init cursor --preset web-app
 ```
 
 检查当前项目：
 
 ```bash
-npx agent-rules-kit doctor
+npx ai-agent-rules-kit doctor
 ```
 
 查看安全规则包：
 
 ```bash
-npx agent-rules-kit show security
+npx ai-agent-rules-kit show security
 ```
 
 ## 它会让 Agent 更注意什么
@@ -100,7 +112,7 @@ npx agent-rules-kit show security
 因为它不是“道理正确的 prompt 集合”，而是一个能马上执行的工具：
 
 ```bash
-npx agent-rules-kit init --interactive
+npx github:Sanmu-27/agent-rules-kit init --interactive
 ```
 
 重度使用 Cursor、Codex、Claude Code 的开发者，只要被 agent 乱改过一次，就能立刻理解这个项目的价值。

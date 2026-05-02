@@ -1,6 +1,6 @@
 # Agent Rules Kit
 
-[![npm](https://img.shields.io/npm/v/agent-rules-kit?color=black)](https://www.npmjs.com/package/agent-rules-kit)
+[![npm](https://img.shields.io/npm/v/ai-agent-rules-kit?color=black)](https://www.npmjs.com/package/ai-agent-rules-kit)
 [![test](https://github.com/Sanmu-27/agent-rules-kit/actions/workflows/test.yml/badge.svg)](https://github.com/Sanmu-27/agent-rules-kit/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-black)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-black)](package.json)
@@ -12,13 +12,19 @@ Agent Rules Kit is a zero-dependency CLI and rule library for Codex, Claude Code
 Instead of telling every agent the same rules by hand, install a project-specific instruction file in seconds.
 
 ```bash
-npx agent-rules-kit init --interactive
-npx agent-rules-kit init cursor --preset web-app
-npx agent-rules-kit doctor
+npx ai-agent-rules-kit init --interactive
+npx ai-agent-rules-kit init cursor --preset web-app
+npx ai-agent-rules-kit doctor
+```
+
+Not published to npm yet? Run directly from GitHub:
+
+```bash
+npx github:Sanmu-27/agent-rules-kit init --interactive
 ```
 
 ```text
-Recommended setup: agent-rules-kit init codex --preset web-app
+Recommended setup: ai-agent-rules-kit init codex --preset web-app
 ```
 
 ## Before And After
@@ -34,7 +40,7 @@ Recommended setup: agent-rules-kit init codex --preset web-app
 ## 30-Second Demo
 
 ```bash
-$ npx agent-rules-kit init --interactive
+$ npx ai-agent-rules-kit init --interactive
 
 Agent Rules Kit interactive setup for /my-app
 Recommended: codex + web-app
@@ -46,6 +52,12 @@ Choose a preset:
 1) web-app  2) frontend  3) api  4) pr-review  5) refactor  6) security
 
 Composed Codex rules with frontend, backend, testing, security at /my-app/AGENTS.md
+```
+
+Before the npm package is published, use:
+
+```bash
+npx github:Sanmu-27/agent-rules-kit init --interactive
 ```
 
 ## Why Developers Star This
@@ -77,13 +89,13 @@ Agent Rules Kit gives you practical instruction files that reduce those failures
 Generate a ready-to-use rule file:
 
 ```bash
-npx agent-rules-kit init codex --preset web-app
+npx ai-agent-rules-kit init codex --preset web-app
 ```
 
 Or let the CLI recommend a setup:
 
 ```bash
-npx agent-rules-kit init --interactive
+npx ai-agent-rules-kit init --interactive
 ```
 
 This creates:
@@ -95,7 +107,7 @@ AGENTS.md
 Check an existing repo:
 
 ```bash
-npx agent-rules-kit doctor
+npx ai-agent-rules-kit doctor
 ```
 
 `doctor` also recommends the best starting command for the current project.
@@ -103,7 +115,7 @@ npx agent-rules-kit doctor
 Compose a richer rule file:
 
 ```bash
-npx agent-rules-kit compose cursor --packs frontend,testing,security
+npx ai-agent-rules-kit compose cursor --packs frontend,testing,security
 ```
 
 This creates:
@@ -115,19 +127,19 @@ This creates:
 Preview a rule pack:
 
 ```bash
-npx agent-rules-kit show code-review
+npx ai-agent-rules-kit show code-review
 ```
 
 Install into another project:
 
 ```bash
-npx agent-rules-kit install claude-code --dir ../my-app
+npx ai-agent-rules-kit install claude-code --dir ../my-app
 ```
 
 Overwrite an existing file:
 
 ```bash
-npx agent-rules-kit install codex --force
+npx ai-agent-rules-kit install codex --force
 ```
 
 ## Recipes
@@ -135,36 +147,36 @@ npx agent-rules-kit install codex --force
 Next.js, Remix, or full-stack web app:
 
 ```bash
-npx agent-rules-kit init cursor --preset web-app
+npx ai-agent-rules-kit init cursor --preset web-app
 ```
 
 Node, Python, Go, or Rust API:
 
 ```bash
-npx agent-rules-kit init codex --preset api
+npx ai-agent-rules-kit init codex --preset api
 ```
 
 PR review assistant:
 
 ```bash
-npx agent-rules-kit init claude-code --preset pr-review
+npx ai-agent-rules-kit init claude-code --preset pr-review
 ```
 
 Security-sensitive repository:
 
 ```bash
-npx agent-rules-kit init github-copilot --preset security
+npx ai-agent-rules-kit init github-copilot --preset security
 ```
 
 ## Supported Tools
 
 | Tool | Command | Output |
 | --- | --- | --- |
-| Codex | `agent-rules-kit install codex` | `AGENTS.md` |
-| Claude Code | `agent-rules-kit install claude-code` | `CLAUDE.md` |
-| Cursor | `agent-rules-kit install cursor` | `.cursorrules` |
-| Windsurf | `agent-rules-kit install windsurf` | `.windsurfrules` |
-| GitHub Copilot | `agent-rules-kit install github-copilot` | `.github/copilot-instructions.md` |
+| Codex | `ai-agent-rules-kit install codex` | `AGENTS.md` |
+| Claude Code | `ai-agent-rules-kit install claude-code` | `CLAUDE.md` |
+| Cursor | `ai-agent-rules-kit install cursor` | `.cursorrules` |
+| Windsurf | `ai-agent-rules-kit install windsurf` | `.windsurfrules` |
+| GitHub Copilot | `ai-agent-rules-kit install github-copilot` | `.github/copilot-instructions.md` |
 
 ## Presets
 
@@ -193,19 +205,19 @@ npx agent-rules-kit init github-copilot --preset security
 For a production web app:
 
 ```bash
-npx agent-rules-kit compose codex --packs frontend,backend,testing,security
+npx ai-agent-rules-kit compose codex --packs frontend,backend,testing,security
 ```
 
 For PR review:
 
 ```bash
-npx agent-rules-kit compose claude-code --packs code-review,testing,security
+npx ai-agent-rules-kit compose claude-code --packs code-review,testing,security
 ```
 
 For a focused frontend repo:
 
 ```bash
-npx agent-rules-kit compose cursor --packs frontend,testing
+npx ai-agent-rules-kit compose cursor --packs frontend,testing
 ```
 
 ## Example Output

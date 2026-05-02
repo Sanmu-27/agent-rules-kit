@@ -28,5 +28,5 @@ I built Agent Rules Kit: copy-ready rules and a tiny CLI for Codex, Claude Code,
 
 It helps AI coding agents inspect code first, keep edits scoped, run tests, and produce useful PR reviews.
 
-npx agent-rules-kit compose cursor --packs frontend,testing,security
+npx ai-agent-rules-kit compose cursor --packs frontend,testing,security
 ```

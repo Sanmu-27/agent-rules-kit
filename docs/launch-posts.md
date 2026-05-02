@@ -1,4 +1,4 @@
-# Launch Posts
+﻿# Launch Posts
 
 ## GitHub Release
 
@@ -15,10 +15,13 @@ Supported tools:
 - GitHub Copilot
 
 Core commands:
-- agent-rules-kit doctor
-- agent-rules-kit init --interactive
-- agent-rules-kit init cursor --preset web-app
-- agent-rules-kit compose codex --packs backend,testing,security
+- ai-agent-rules-kit doctor
+- ai-agent-rules-kit init --interactive
+- ai-agent-rules-kit init cursor --preset web-app
+- ai-agent-rules-kit compose codex --packs backend,testing,security
+
+Before npm publishing, you can run it from GitHub:
+npx github:Sanmu-27/agent-rules-kit init --interactive
 
 This first release includes rule packs for frontend, backend, testing, code review, security, and refactoring work.
 ```
@@ -37,9 +40,7 @@ It helps agents:
 - run focused tests
 - write better PR reviews
 
-npx agent-rules-kit init --interactive
-or
-npx agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit init --interactive
 ```
 
 ## Hacker News
@@ -53,9 +54,7 @@ The idea is simple: most coding-agent failures are predictable. They edit before
 
 Example:
 
-npx agent-rules-kit init --interactive
-or
-npx agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit init --interactive
 
 It currently includes frontend, backend, testing, code review, security, and refactor packs. Feedback welcome, especially from people using agents in larger codebases.
 ```
@@ -71,9 +70,7 @@ The goal is to make agents behave more consistently in real projects: inspect co
 
 Example:
 
-npx agent-rules-kit init --interactive
-or
-npx agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit init --interactive
 
 I am looking for feedback on useful presets and real failure modes worth turning into rules.
 ```
@@ -85,9 +82,7 @@ I am looking for feedback on useful presets and real failure modes worth turning
 
 它不是普通 prompt 集合，而是一个可以直接运行的 CLI：
 
-npx agent-rules-kit init --interactive
-或者
-npx agent-rules-kit init cursor --preset web-app
+npx github:Sanmu-27/agent-rules-kit init --interactive
 
 支持 Codex、Claude Code、Cursor、Windsurf、GitHub Copilot。
 

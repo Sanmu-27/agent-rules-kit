@@ -1,10 +1,10 @@
 {
-  "name": "agent-rules-kit",
+  "name": "ai-agent-rules-kit",
   "version": "0.1.0",
   "description": "Copy-ready rules, prompts, and a tiny CLI for AI coding agents.",
   "type": "module",
   "bin": {
-    "agent-rules-kit": "./bin/agent-rules-kit.js"
+    "ai-agent-rules-kit": "./bin/agent-rules-kit.js"
   },
   "files": [
     "backend",
