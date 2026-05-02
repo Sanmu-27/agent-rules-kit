@@ -1,7 +1,7 @@
 # Agent Rules Kit
 
 [![npm](https://img.shields.io/npm/v/agent-rules-kit?color=black)](https://www.npmjs.com/package/agent-rules-kit)
-[![test](https://github.com/your-name/agent-rules-kit/actions/workflows/test.yml/badge.svg)](https://github.com/your-name/agent-rules-kit/actions/workflows/test.yml)
+[![test](https://github.com/Sanmu-27/agent-rules-kit/actions/workflows/test.yml/badge.svg)](https://github.com/Sanmu-27/agent-rules-kit/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-black)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-black)](package.json)
 
