@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createInterface } from "node:readline/promises";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -70,9 +71,11 @@ function parseOptions(args) {
   const options = {
     dir: ".",
     force: false,
+    interactive: false,
     packs: [],
     output: undefined,
-    preset: undefined
+    preset: undefined,
+    yes: false
   };
   const positionals = [];
 
@@ -83,6 +86,8 @@ function parseOptions(args) {
       index += 1;
     } else if (arg === "--force") {
       options.force = true;
+    } else if (arg === "--interactive" || arg === "-i") {
+      options.interactive = true;
     } else if (arg === "--packs") {
       options.packs = args[index + 1].split(",").map((item) => item.trim()).filter(Boolean);
       index += 1;
@@ -92,6 +97,8 @@ function parseOptions(args) {
     } else if (arg === "--preset") {
       options.preset = args[index + 1];
       index += 1;
+    } else if (arg === "--yes" || arg === "-y") {
+      options.yes = true;
     } else {
       positionals.push(arg);
     }
@@ -106,7 +113,7 @@ function printHelp(io = console) {
 Usage:
   agent-rules-kit list
   agent-rules-kit doctor [--dir <path>]
-  agent-rules-kit init <tool> [--preset <preset>] [--dir <path>] [--force]
+  agent-rules-kit init [tool] [--preset <preset>] [--interactive] [--dir <path>] [--force]
   agent-rules-kit install <tool> [--dir <path>] [--force]
   agent-rules-kit compose <tool> --packs <pack,pack> [--dir <path>] [--output <file>] [--force]
   agent-rules-kit show <tool|pack|prompt>
@@ -125,6 +132,7 @@ Presets:
 
 Examples:
   agent-rules-kit doctor
+  agent-rules-kit init --interactive
   agent-rules-kit init cursor --preset web-app
   agent-rules-kit install codex
   agent-rules-kit compose cursor --packs frontend,testing,code-review
@@ -164,6 +172,52 @@ function writeTarget(baseDir, relativeTarget, content, force) {
   mkdirSync(dirname(target), { recursive: true });
   writeFileSync(target, `${content}\n`, "utf8");
   return target;
+}
+
+function detectProject(baseDir) {
+  const names = new Set(existsSync(baseDir) ? readdirSync(baseDir) : []);
+  const has = (name) => names.has(name);
+
+  if (has("next.config.js") || has("next.config.mjs") || has("vite.config.js") || has("vite.config.ts")) {
+    return "web-app";
+  }
+  if (has("package.json")) {
+    try {
+      const pkg = JSON.parse(readFileSync(resolve(baseDir, "package.json"), "utf8"));
+      const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+      if (deps.react || deps.vue || deps.svelte) {
+        return "frontend";
+      }
+      if (deps.express || deps.fastify || deps.koa || deps.hono || deps.nestjs) {
+        return "api";
+      }
+    } catch {
+      return "web-app";
+    }
+    return "web-app";
+  }
+  if (has("pyproject.toml") || has("requirements.txt") || has("go.mod") || has("Cargo.toml")) {
+    return "api";
+  }
+
+  return "web-app";
+}
+
+function detectTool(baseDir) {
+  for (const [id, tool] of Object.entries(tools)) {
+    if (existsSync(resolve(baseDir, tool.target))) {
+      return id;
+    }
+  }
+
+  if (existsSync(resolve(baseDir, ".cursor")) || existsSync(resolve(baseDir, ".cursorrules"))) {
+    return "cursor";
+  }
+  if (existsSync(resolve(baseDir, ".github"))) {
+    return "github-copilot";
+  }
+
+  return "codex";
 }
 
 function install(toolId, options, io = console) {
@@ -212,10 +266,58 @@ function init(toolId, options, io = console) {
   compose(toolId, { ...options, packs: packList }, io);
 }
 
+async function askChoice(rl, question, choices, fallback) {
+  const label = choices.map((choice, index) => `${index + 1}) ${choice}`).join("  ");
+  const answer = await rl.question(`${question}\n${label}\n> `);
+  const trimmed = answer.trim();
+  const byNumber = Number(trimmed);
+
+  if (Number.isInteger(byNumber) && byNumber >= 1 && byNumber <= choices.length) {
+    return choices[byNumber - 1];
+  }
+  if (choices.includes(trimmed)) {
+    return trimmed;
+  }
+
+  return fallback;
+}
+
+async function interactiveInit(options, io = console) {
+  const baseDir = resolve(options.dir);
+  const recommendedTool = detectTool(baseDir);
+  const recommendedPreset = detectProject(baseDir);
+  const toolIds = Object.keys(tools);
+  const presetIds = Object.keys(presets);
+
+  if (options.yes) {
+    io.log(`Using recommended tool "${recommendedTool}" and preset "${recommendedPreset}".`);
+    init(recommendedTool, { ...options, preset: recommendedPreset }, io);
+    return;
+  }
+
+  io.log(`Agent Rules Kit interactive setup for ${baseDir}`);
+  io.log(`Recommended: ${recommendedTool} + ${recommendedPreset}`);
+
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  try {
+    const toolId = await askChoice(rl, "Choose an AI coding tool:", toolIds, recommendedTool);
+    const preset = await askChoice(rl, "Choose a preset:", presetIds, recommendedPreset);
+    init(toolId, { ...options, preset }, io);
+  } finally {
+    rl.close();
+  }
+}
+
 function doctor(options, io = console) {
   const baseDir = resolve(options.dir);
   const found = [];
   const missing = [];
+  const recommendedTool = detectTool(baseDir);
+  const recommendedPreset = detectProject(baseDir);
 
   for (const [id, tool] of Object.entries(tools)) {
     const target = resolve(baseDir, tool.target);
@@ -227,6 +329,7 @@ function doctor(options, io = console) {
   }
 
   io.log(`Agent Rules Kit doctor for ${baseDir}`);
+  io.log(`\nRecommended setup: agent-rules-kit init ${recommendedTool} --preset ${recommendedPreset}`);
   if (found.length > 0) {
     io.log("\nFound agent config files:");
     for (const item of found) {
@@ -251,7 +354,7 @@ function show(id, io = console) {
   io.log(readTemplate(source));
 }
 
-export function run(argv = process.argv.slice(2), io = console) {
+export async function run(argv = process.argv.slice(2), io = console) {
   const [command, ...rest] = argv;
   const { options, positionals } = parseOptions(rest);
 
@@ -269,6 +372,10 @@ export function run(argv = process.argv.slice(2), io = console) {
       return 0;
     }
     if (command === "init") {
+      if (options.interactive || !positionals[0]) {
+        await interactiveInit(options, io);
+        return 0;
+      }
       init(positionals[0], options, io);
       return 0;
     }
@@ -293,5 +400,5 @@ export function run(argv = process.argv.slice(2), io = console) {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === cliPath) {
-  process.exitCode = run();
+  process.exitCode = await run();
 }

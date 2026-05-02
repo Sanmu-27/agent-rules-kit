@@ -23,9 +23,9 @@ function createIo() {
   };
 }
 
-test("list prints tools and packs", () => {
+test("list prints tools and packs", async () => {
   const { io, output } = createIo();
-  const status = run(["list"], io);
+  const status = await run(["list"], io);
 
   assert.equal(status, 0);
   assert.match(output.join("\n"), /codex/);
@@ -33,12 +33,12 @@ test("list prints tools and packs", () => {
   assert.match(output.join("\n"), /bug-fix/);
 });
 
-test("install writes a tool rule file", () => {
+test("install writes a tool rule file", async () => {
   const dir = mkdtempSync(join(tmpdir(), "agent-rules-kit-"));
   const { io } = createIo();
 
   try {
-    const status = run(["install", "codex", "--dir", dir], io);
+    const status = await run(["install", "codex", "--dir", dir], io);
     const installed = readFileSync(join(dir, "AGENTS.md"), "utf8");
 
     assert.equal(status, 0);
@@ -48,12 +48,12 @@ test("install writes a tool rule file", () => {
   }
 });
 
-test("compose combines tool and packs", () => {
+test("compose combines tool and packs", async () => {
   const dir = mkdtempSync(join(tmpdir(), "agent-rules-kit-"));
   const { io } = createIo();
 
   try {
-    const status = run(["compose", "cursor", "--packs", "frontend,testing", "--dir", dir], io);
+    const status = await run(["compose", "cursor", "--packs", "frontend,testing", "--dir", dir], io);
     const installed = readFileSync(join(dir, ".cursorrules"), "utf8");
 
     assert.equal(status, 0);
@@ -65,28 +65,28 @@ test("compose combines tool and packs", () => {
   }
 });
 
-test("show prints a pack", () => {
+test("show prints a pack", async () => {
   const { io, output } = createIo();
-  const status = run(["show", "security"], io);
+  const status = await run(["show", "security"], io);
 
   assert.equal(status, 0);
   assert.match(output.join("\n"), /Security Agent Rules/);
 });
 
-test("unknown packs fail clearly", () => {
+test("unknown packs fail clearly", async () => {
   const { io, errors } = createIo();
-  const status = run(["compose", "codex", "--packs", "made-up"], io);
+  const status = await run(["compose", "codex", "--packs", "made-up"], io);
 
   assert.equal(status, 1);
   assert.match(errors.join("\n"), /Unknown pack/);
 });
 
-test("init writes a preset-based rule file", () => {
+test("init writes a preset-based rule file", async () => {
   const dir = mkdtempSync(join(tmpdir(), "agent-rules-kit-"));
   const { io } = createIo();
 
   try {
-    const status = run(["init", "codex", "--preset", "web-app", "--dir", dir], io);
+    const status = await run(["init", "codex", "--preset", "web-app", "--dir", dir], io);
     const installed = readFileSync(join(dir, "AGENTS.md"), "utf8");
 
     assert.equal(status, 0);
@@ -99,15 +99,15 @@ test("init writes a preset-based rule file", () => {
   }
 });
 
-test("doctor reports existing and available agent files", () => {
+test("doctor reports existing and available agent files", async () => {
   const dir = mkdtempSync(join(tmpdir(), "agent-rules-kit-"));
   const installIo = createIo();
   const { io, output } = createIo();
 
   try {
-    assert.equal(run(["install", "cursor", "--dir", dir], installIo.io), 0);
+    assert.equal(await run(["install", "cursor", "--dir", dir], installIo.io), 0);
 
-    const status = run(["doctor", "--dir", dir], io);
+    const status = await run(["doctor", "--dir", dir], io);
     const text = output.join("\n");
 
     assert.equal(status, 0);
@@ -115,15 +115,34 @@ test("doctor reports existing and available agent files", () => {
     assert.match(text, /cursor/);
     assert.match(text, /Available installs/);
     assert.match(text, /codex/);
+    assert.match(text, /Recommended setup/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
 });
 
-test("unknown presets fail clearly", () => {
+test("unknown presets fail clearly", async () => {
   const { io, errors } = createIo();
-  const status = run(["init", "codex", "--preset", "made-up"], io);
+  const status = await run(["init", "codex", "--preset", "made-up"], io);
 
   assert.equal(status, 1);
   assert.match(errors.join("\n"), /Unknown preset/);
+});
+
+test("interactive init can accept recommended defaults", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "agent-rules-kit-"));
+  const { io, output } = createIo();
+
+  try {
+    const status = await run(["init", "--interactive", "--yes", "--dir", dir], io);
+    const installed = readFileSync(join(dir, "AGENTS.md"), "utf8");
+    const text = output.join("\n");
+
+    assert.equal(status, 0);
+    assert.match(text, /Using recommended tool/);
+    assert.match(installed, /Codex Agent Rules/);
+    assert.match(installed, /Frontend Agent Rules/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

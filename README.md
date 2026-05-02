@@ -10,12 +10,13 @@ Make AI coding agents follow your engineering standards.
 Agent Rules Kit is a zero-dependency CLI and rule library for Codex, Claude Code, Cursor, Windsurf, and GitHub Copilot.
 
 ```bash
+npx agent-rules-kit init --interactive
 npx agent-rules-kit init cursor --preset web-app
 npx agent-rules-kit doctor
 ```
 
 ```text
-Composed Cursor rules with frontend, backend, testing, security at .cursorrules
+Recommended setup: agent-rules-kit init codex --preset web-app
 ```
 
 ## Why Developers Star This
@@ -39,7 +40,7 @@ Agent Rules Kit gives you practical instruction files that reduce those failures
 | Rule packs | Frontend, backend, testing, code review, security, refactor |
 | Presets | Web app, frontend, API, PR review, refactor, security |
 | Prompts | Bug fix, feature implementation, PR review |
-| CLI | `doctor`, `init`, `list`, `install`, `compose`, `show` |
+| CLI | `doctor`, `init`, `init --interactive`, `list`, `install`, `compose`, `show` |
 | GitHub-ready repo | Issue template, PR template, CI workflow |
 
 ## Quick Start
@@ -48,6 +49,12 @@ Generate a ready-to-use rule file:
 
 ```bash
 npx agent-rules-kit init codex --preset web-app
+```
+
+Or let the CLI recommend a setup:
+
+```bash
+npx agent-rules-kit init --interactive
 ```
 
 This creates:
@@ -61,6 +68,8 @@ Check an existing repo:
 ```bash
 npx agent-rules-kit doctor
 ```
+
+`doctor` also recommends the best starting command for the current project.
 
 Compose a richer rule file:
 
